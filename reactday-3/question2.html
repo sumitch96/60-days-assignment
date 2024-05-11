@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    let root=document.getElementById("root")
+    let createRoot=ReactDOM.createRoot(root)
+
+    function App(){
+            let [hobbies,setHobbies]=React.useState([''])
+
+        
+            
+            function handleChange(index,event){
+                let newHobby=[...hobbies]
+                newHobby[index]=event.target.value
+                setHobbies(newHobby)
+            }
+            function removeHobby(ind){
+                if(hobbies.length===1){
+                    return;
+                }
+                let newHobby=[...hobbies]
+                newHobby.splice(ind,1)
+                setHobbies(newHobby)
+            }
+        return <>
+             <div>
+                  {hobbies.map((hobby,ind)=>(
+                    <div>
+                        <input type="text" value={hobby} onChange={(e)=>handleChange(ind,e)}  style={  {padding: "10px",margin : "10px"}}/>    
+                        {ind!==0 && (
+                            <button onClick={()=>removeHobby(ind)}  style={  {padding: "5px",margin : "5px" , color: "aqua"}}>Remove</button>
+                        )}
+                    </div>
+                  ))}    
+            </div>
+              <button onClick={()=>console.log(hobbies)}  style={  {padding: "5px",margin : "5px" , color: "red"}}>Submit</button>
+              <button onClick={()=>setHobbies([...hobbies,''])}  style={  {padding: "5px",margin : "5px" , color: "green"}}>Add Hobbies</button>   
+        </>
+    }
+ createRoot.render(<App/>)    
+  </script>
+</html>
